@@ -3,7 +3,7 @@ import onnxruntime as ort
 import pickle
 import numpy as np
 from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
+#from googleapiclient.errors import HttpError
 import pandas as pd
 import re
 from urllib.parse import parse_qs, urlparse
@@ -90,24 +90,26 @@ def predict_toxicity(text):
             results[label] = float(prob)
         
         return results
+    
     except Exception as e:
-        st.error(f"Error processing text: {str(e)}")
+        st.error(f"Error procesando texto: {str(e)}")
         return None
     
 
 # Streamlit UI
-st.title("Text Toxicity Classifier")
+st.title("Clasificador de toxicidad de comentarios")
 
 # Create tabs for different scenarios
-tab1, tab2 = st.tabs(["Single Text Analysis", "Youtube URL Comments Analysis"])
+tab1, tab2 = st.tabs(["Analisis de un comentario", "Analisis de un enlace de YouTube"])
 
 with tab1:
-    st.header("Analyze Single Text")
-    input_text = st.text_area("Enter text to analyze:")
+    st.header("Analizar un comentario")
+    input_text = st.text_area("Ingresar comentario a analizar:")
     
-    if st.button("Analyze Text"):
+    if st.button("Analizar comentario"):
         if input_text:
             es_toxico = False
+            input_text = preprocess_text(input_text)
             probabilities = predict_toxicity(input_text)
             es_toxico = any(prob > 0.5 for _, prob in probabilities.items())
             # Display results
@@ -119,20 +121,21 @@ with tab1:
             st.warning("Please enter some text to analyze.")
 
 with tab2:
-    st.header("Analyze YouTube Comments")
+    st.header("Analizar un enlace de YouTube")
     #api_key = st.text_input("Enter your YouTube API Key:", type="password")
-    video_url = st.text_input("Enter YouTube Video URL:")
+    video_url = st.text_input("Ingresar URL de YouTube:")
     
-    if st.button("Analyze Comments"):
+    if st.button("Analizar comentarios"):
         if api_key and video_url:
             video_id = get_video_id(video_url)
             if video_id:
-                with st.spinner("Fetching and analyzing comments..."):
+                with st.spinner("Extrayendo y analizando comentarios..."):
                     try:
                         comments = get_video_comments(video_id, api_key)
                         results = []
                         
                         for comment in comments:
+                            input_text = preprocess_text(comment)
                             es_toxico = False
                             probabilities = predict_toxicity(comment)
                             es_toxico = any(prob > 0.5 for _, prob in probabilities.items())
@@ -157,9 +160,9 @@ with tab2:
                     except Exception as e:
                         st.error(f"Error: {str(e)}")
             else:
-                st.error("Invalid YouTube URL")
+                st.error("URL invalida. Por favor ingrese un enlace de YouTube valido.")
         else:
-            st.warning("Please enter both API key and video URL.")
+            st.warning("Ingrese un enlace de YouTube para continuar.")
 
 
 
