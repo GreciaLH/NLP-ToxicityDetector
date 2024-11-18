@@ -11,6 +11,8 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.preprocessing.text import Tokenizer
 from dotenv import load_dotenv
 import os
+from db_management import store_prediction
+
 
 load_dotenv()  # load environment variables from .env
 api_key = os.getenv('API_KEY')
@@ -117,6 +119,20 @@ with tab1:
             st.write(f"EsToxico: {es_toxico}")
             for label, prob in probabilities.items():  # Changed to .items()
                 st.metric(label, f"{prob:.3f}")  # Changed from :.3% to :.3f
+
+                        
+            # Store prediction in the database
+            store_prediction(
+                comment=input_text,
+                estoxico=es_toxico,
+                is_toxic=probabilities['IsToxic'],
+                is_abusive=probabilities['IsAbusive'],
+                is_provocative=probabilities['IsProvocative'],
+                is_obscene=probabilities['IsObscene'],
+                is_hatespeech=probabilities['IsHatespeech'],
+                is_racist=probabilities['IsRacist']
+            )
+
         else:
             st.warning("Please enter some text to analyze.")
 
@@ -146,6 +162,20 @@ with tab2:
                             }
                             results.append(result)
                         
+                            # Store prediction in the database
+                            store_prediction(
+                                comment=comment,
+                                estoxico=es_toxico,
+                                is_toxic=probabilities['IsToxic'],
+                                is_abusive=probabilities['IsAbusive'],
+                                is_provocative=probabilities['IsProvocative'],
+                                is_obscene=probabilities['IsObscene'],
+                                is_hatespeech=probabilities['IsHatespeech'],
+                                is_racist=probabilities['IsRacist'],
+                                video_url=video_url
+                            )
+
+
                         # Create and display DataFrame
                         df = pd.DataFrame(results)
                         # Set display options to show all columns without scrolling
