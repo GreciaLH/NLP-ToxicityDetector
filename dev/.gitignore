@@ -1,0 +1,4 @@
+claude*.py
+support_files/
+data/
+.env
