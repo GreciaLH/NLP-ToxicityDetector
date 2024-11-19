@@ -11,8 +11,8 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.preprocessing.text import Tokenizer
 from dotenv import load_dotenv
 import os
-from db_management import store_prediction
-
+from db_management import store_prediction, get_es_toxico_distribution, get_score_distributions
+import matplotlib.pyplot as plt
 
 load_dotenv()  # load environment variables from .env
 api_key = os.getenv('API_KEY')
@@ -102,7 +102,7 @@ def predict_toxicity(text):
 st.title("Clasificador de toxicidad de comentarios")
 
 # Create tabs for different scenarios
-tab1, tab2 = st.tabs(["Analisis de un comentario", "Analisis de un enlace de YouTube"])
+tab1, tab2, tab3 = st.tabs(["Analisis de un comentario", "Analisis de un enlace de YouTube", "Visualización de datos"])
 
 with tab1:
     st.header("Analizar un comentario")
@@ -198,7 +198,42 @@ with tab2:
         else:
             st.warning("Ingrese un enlace de YouTube para continuar.")
 
+with tab3:
+    st.header("Visualización de datos")
+    
+    # Fetch data for es_toxico distribution
+    es_toxico_df = get_es_toxico_distribution()
+    if es_toxico_df is not None:
+        st.subheader("Distribución de EsToxico")
+        fig1, ax1 = plt.subplots()
+        ax1.pie(es_toxico_df['count'], labels=es_toxico_df['es_toxico'], autopct='%1.1f%%', startangle=90)
+        ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+        st.pyplot(fig1)
+    
 
+# Fetch and display score distributions
+distributions = get_score_distributions()
+if distributions is not None:
+    st.subheader("Distribución de puntuaciones")
+    metrics = ['is_abusive', 'is_provocative', 'is_obscene', 'is_hatespeech', 'is_racist']
+    
+    # Create a 3x2 grid of subplots
+    fig3, axes = plt.subplots(3, 2, figsize=(15, 20))
+    axes = axes.ravel()
+    
+    for idx, metric in enumerate(metrics):
+        df = distributions[metric]
+        axes[idx].bar(df['bucket_range'], df['percentage'])
+        axes[idx].set_title(f'Distribución de {metric}')
+        axes[idx].set_xlabel('Rango de valores')
+        axes[idx].set_ylabel('Porcentaje de comentarios (%)')
+        axes[idx].yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: '{:.1f}%'.format(y)))
+        plt.setp(axes[idx].xaxis.get_majorticklabels(), rotation=45)
+    
+    # Remove the extra subplot
+    fig3.delaxes(axes[5])
+    plt.tight_layout()
+    st.pyplot(fig3)
 
 # Add this at the bottom of the notebook cell
 
