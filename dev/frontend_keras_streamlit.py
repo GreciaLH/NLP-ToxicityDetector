@@ -113,7 +113,7 @@ with tab1:
             es_toxico = False
             input_text = preprocess_text(input_text)
             probabilities = predict_toxicity(input_text)
-            es_toxico = any(prob > 0.5 for _, prob in probabilities.items())
+            es_toxico = any(prob > 0.5 for label, prob in probabilities.items() if label != 'IsToxic')
             # Display results
             st.subheader("Classification Results:")
             st.write(f"EsToxico: {es_toxico}")
@@ -154,7 +154,7 @@ with tab2:
                             input_text = preprocess_text(comment)
                             es_toxico = False
                             probabilities = predict_toxicity(comment)
-                            es_toxico = any(prob > 0.5 for _, prob in probabilities.items())
+                            es_toxico = any(prob > 0.5 for label, prob in probabilities.items() if label != 'IsToxic')
                             result = {
                                 'Comment': comment,
                                 'EsToxico': es_toxico,
@@ -177,13 +177,17 @@ with tab2:
 
 
                         # Create and display DataFrame
-                        df = pd.DataFrame(results)
+                        df = pd.DataFrame(results).drop(columns=['IsToxic'])
                         # Set display options to show all columns without scrolling
+                        # Adjust column width for 'Comment' column
                         st.dataframe(
-                            df.head(10),  # Show only first 10 rows
-                            use_container_width=True,  # Makes dataframe use full width
-                            height=500,  # Fixed height, adjust as needed
-                            hide_index=True  # Optionally hide index for cleaner display
+                            df.style.set_properties(
+                                subset=['Comment'], 
+                                **{'width': '200px', 'font-size': '9px'}
+                            ),
+                            use_container_width=True,
+                            height=500,
+                            hide_index=True
                         )
                         
                         
