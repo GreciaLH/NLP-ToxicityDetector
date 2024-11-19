@@ -1,4 +1,2 @@
-claude*.py
-support_files/
-data/
+bak_files/
 .env

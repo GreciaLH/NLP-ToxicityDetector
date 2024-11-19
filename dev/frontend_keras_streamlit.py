@@ -3,7 +3,6 @@ import onnxruntime as ort
 import pickle
 import numpy as np
 from googleapiclient.discovery import build
-#from googleapiclient.errors import HttpError
 import pandas as pd
 import re
 from urllib.parse import parse_qs, urlparse
@@ -18,11 +17,11 @@ load_dotenv()  # load environment variables from .env
 api_key = os.getenv('API_KEY')
 
 # Load tokenizer
-with open('models/tokenizer.pickle', 'rb') as handle:
+with open('model_runtimes/tokenizer.pickle', 'rb') as handle:
     tokenizer = pickle.load(handle)
 
 # Load the ONNX model
-model_path = 'models/text_classification_model.onnx'
+model_path = 'model_runtimes/text_classification_model.onnx'
 ort_session = ort.InferenceSession(model_path)
 
 # Labels for classification
@@ -96,13 +95,14 @@ def predict_toxicity(text):
     except Exception as e:
         st.error(f"Error procesando texto: {str(e)}")
         return None
-    
+
 
 # Streamlit UI
 st.title("Clasificador de toxicidad de comentarios")
 
 # Create tabs for different scenarios
 tab1, tab2, tab3 = st.tabs(["Analisis de un comentario", "Analisis de un enlace de YouTube", "Visualización de datos"])
+
 
 with tab1:
     st.header("Analizar un comentario")
@@ -118,7 +118,8 @@ with tab1:
             st.subheader("Classification Results:")
             st.write(f"EsToxico: {es_toxico}")
             for label, prob in probabilities.items():  # Changed to .items()
-                st.metric(label, f"{prob:.3f}")  # Changed from :.3% to :.3f
+                if label != 'IsToxic':
+                    st.metric(label, f"{prob:.3f}")  # Changed from :.3% to :.3f
 
                         
             # Store prediction in the database
@@ -211,11 +212,11 @@ with tab3:
         st.pyplot(fig1)
     
 
-# Fetch and display score distributions
-distributions = get_score_distributions()
-if distributions is not None:
-    st.subheader("Distribución de puntuaciones")
-    metrics = ['is_abusive', 'is_provocative', 'is_obscene', 'is_hatespeech', 'is_racist']
+    # Fetch and display score distributions
+    distributions = get_score_distributions()
+    if distributions is not None:
+        st.subheader("Distribución de predicciones")
+        metrics = ['is_abusive', 'is_provocative', 'is_obscene', 'is_hatespeech', 'is_racist']
     
     # Create a 3x2 grid of subplots
     fig3, axes = plt.subplots(3, 2, figsize=(15, 20))
