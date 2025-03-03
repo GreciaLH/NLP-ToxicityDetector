@@ -23,7 +23,7 @@ wheels/
 MANIFEST
 
 # Entornos virtuales
-ytoxic/
+ytoxic
 env/
 ENV/
 .env
