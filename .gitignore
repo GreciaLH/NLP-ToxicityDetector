@@ -1,0 +1,101 @@
+
+# Archivos de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Entornos virtuales
+ytoxic/
+env/
+ENV/
+.env
+.venv
+env.bak/
+venv.bak/
+.python-version
+.conda/
+conda-env/
+
+# Notebooks
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+profile_default/
+ipython_config.py
+
+# Archivos de configuración de IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+.project
+.pydevproject
+.settings/
+.spyderproject
+.spyproject
+*.sublime-project
+*.sublime-workspace
+
+# Archivos de logs
+*.log
+logs/
+log/
+tmp/
+temp/
+
+# Archivos de modelo entrenado (pueden ser muy grandes)
+*.model
+*.pkl
+*.joblib
+*.h5
+models/
+
+# Archivos de datos grandes
+*.csv.gz
+*.parquet
+*.feather
+*.arrow
+*.h5
+*.hdf5
+*.pickle
+*.bin
+
+# Excepciones para datos pequeños que sí queremos incluir
+!data/processed/processed_dataset.csv
+!data/raw/dataset.csv
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archivos confidenciales
+*.env
+credentials.json
+*_key.json
+secrets.yaml
+config.ini
+settings.ini
+
+# Resultados y visualizaciones generadas
+results/
+plots/
+figures/
+output/
