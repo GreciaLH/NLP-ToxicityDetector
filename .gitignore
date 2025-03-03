@@ -24,6 +24,7 @@ MANIFEST
 
 # Entornos virtuales
 ytoxic/
+youtube/
 env/
 ENV/
 .env
