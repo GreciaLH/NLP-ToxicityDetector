@@ -100,3 +100,6 @@ results/
 plots/
 figures/
 output/
+
+mlruns/
+processed_data_20250304_013052/
