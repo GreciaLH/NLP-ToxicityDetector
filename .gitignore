@@ -24,7 +24,7 @@ MANIFEST
 
 # Entornos virtuales
 ytoxic/
-env/
+venv/
 ENV/
 .env
 .venv
