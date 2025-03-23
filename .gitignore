@@ -23,6 +23,7 @@ wheels/
 MANIFEST
 
 # Entornos virtuales
+Venv/
 ytoxic/
 env/
 ENV/
