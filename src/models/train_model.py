@@ -113,10 +113,10 @@ submission_df.to_csv('../../data/processed/submission.csv', index=False)
 print("Predicciones guardadas en submission.csv")
 
 # Guardar modelo y vectorizador
-with open('c:\\Users\\ibane\\Downloads\\dataset\\tfidf_vectorizer.pkl', 'wb') as f:
+with open('../../models/tfidf_vectorizer.pkl', 'wb') as f:
     pickle.dump(tfidf_vectorizer, f)
 
-with open('c:\\Users\\ibane\\Downloads\\dataset\\toxicity_model.pkl', 'wb') as f:
+with open('../../models/toxicity_model.pkl', 'wb') as f:
     pickle.dump(model, f)
 
 print("Modelo y vectorizador guardados correctamente")
