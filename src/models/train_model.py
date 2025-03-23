@@ -20,7 +20,7 @@ nltk.download('punkt')
 # Cargar los datos
 print("Cargando datos...")
 train_df = pd.read_csv('../../data/raw/train.csv')
-test_df = pd.read_csv('c:\\Users\\ibane\\Downloads\\dataset\\test.csv')
+test_df = pd.read_csv('../../data/raw/test.csv')
 
 # Función para limpiar texto
 def clean_text(text):
@@ -109,7 +109,7 @@ for i, label in enumerate(label_columns):
     submission_df[label] = test_predictions[i]
 
 # Guardar predicciones
-submission_df.to_csv('c:\\Users\\ibane\\Downloads\\dataset\\submission.csv', index=False)
+submission_df.to_csv('../../data/processed/submission.csv', index=False)
 print("Predicciones guardadas en submission.csv")
 
 # Guardar modelo y vectorizador

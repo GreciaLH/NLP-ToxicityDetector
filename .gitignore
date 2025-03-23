@@ -13,6 +13,7 @@ logs/
 log/
 tmp/
 temp/
+*.csv
 
 # Archivos de modelo entrenado (pueden ser muy grandes)
 /*.model
