@@ -15,11 +15,17 @@ tmp/
 temp/
 
 # Archivos de modelo entrenado (pueden ser muy grandes)
-*.model
-*.pkl
-*.joblib
-*.h5
-models/
+/*.model
+/*.pkl
+/*.joblib
+/*.h5
+/models/*.model
+/models/*.pkl
+/models/*.joblib
+/models/*.h5
+
+# Ignorar la carpeta models en la raíz pero no en src
+/models/
 
 # Archivos de datos grandes
 *.csv.gz
