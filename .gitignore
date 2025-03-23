@@ -1,5 +1,14 @@
 # Entornos virtuales
+ytoxic/
 venv/
+ENV/
+.env
+.venv
+env.bak/
+venv.bak/
+.python-version
+.conda/
+conda-env/
 
 # Notebooks
 .ipynb_checkpoints
