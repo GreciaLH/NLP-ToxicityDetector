@@ -12,13 +12,13 @@ from tqdm import tqdm  # Añadido para barras de progreso
 MAX_LEN = 128
 BATCH_SIZE = 32
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-MODEL_PATH = 'c:\\Users\\ibane\\Downloads\\dataset\\bert_toxicity_model'
+MODEL_PATH = '../../models/bert_toxicity_model'
 
 print(f"Usando dispositivo: {DEVICE}")
 
 # Cargar datos de prueba
 print("Cargando datos de prueba...")
-test_df = pd.read_csv('c:\\Users\\ibane\\Downloads\\dataset\\test.csv')
+test_df = pd.read_csv('../../data/raw/test.csv')
 print(f"Datos cargados: {len(test_df)} comentarios")
 
 # Definir etiquetas
@@ -119,7 +119,7 @@ for i, label in enumerate(label_columns):
     submission_df[label] = test_predictions[:, i]
 
 # Guardar predicciones
-submission_df.to_csv('c:\\Users\\ibane\\Downloads\\dataset\\bert_final_submission.csv', index=False)
+submission_df.to_csv('../../data/processed/bert_final_submission.csv', index=False)
 print("Predicciones guardadas en bert_final_submission.csv")
 
 # Visualizar distribución de predicciones
@@ -132,5 +132,5 @@ for i, label in enumerate(label_columns):
     plt.ylabel('Frecuencia')
 
 plt.tight_layout()
-plt.savefig('c:\\Users\\ibane\\Downloads\\dataset\\bert_predictions_distribution.png')
+plt.savefig('../../reports/bert_predictions_distribution.png')
 print("Gráfico de distribución de predicciones guardado")
