@@ -119,10 +119,11 @@ Este script:
 - Guarda el modelo entrenado y el vectorizador
 
 Modelo BERT
+
 El entrenamiento del modelo BERT se realizó en Google Colab debido a sus requisitos computacionales:
 
 ```bash
-python src/models/train_bert_model.py
+python src/models/train_bert_model.ipynb
  ```
 
 Este script:
