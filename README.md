@@ -38,7 +38,9 @@ El dataset contiene una gran cantidad de comentarios de Wikipedia etiquetados po
 - **test.csv**: El conjunto de prueba. Contiene comentarios para los cuales se deben predecir las probabilidades de toxicidad.
 
 ## Estructura del Proyecto
-dataset/
+
+```bash
+raíz/
 │
 ├── data/                          # Datos del proyecto
 │   ├── raw/                       # Datos originales sin procesar
@@ -68,7 +70,7 @@ dataset/
 ├── src/                           # Código fuente del proyecto
 │   ├── models/                    # Scripts para modelos
 │   │   ├── train_model.py         # Entrenamiento de modelo de regresión logística
-│   │   ├── train_bert_model.ipynb    # Entrenamiento de BERT
+│   │   ├── train_bert_model.py    # Entrenamiento de BERT
 │   │   └── evaluate_bert_model.py # Evaluación de modelo BERT
 │   │
 │   └── visualization/             # Scripts para visualización
@@ -84,6 +86,7 @@ dataset/
 │
 ├── requirements.txt               # Dependencias del proyecto
 └── README.md                      # Este archivo
+```
 
 ## Instalación
 
