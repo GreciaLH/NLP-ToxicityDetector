@@ -103,7 +103,9 @@ python src/data/explore_data.py
 
 Este script genera visualizaciones sobre la distribución de etiquetas, longitud de comentarios y otras características importantes del conjunto de datos.
 
-### 2. Entrenamiento de Modelos Modelo de Regresión Logística
+### 2. Entrenamiento de Modelos
+
+Modelo de Regresión Logística
 ```bash
 python src/models/train_model.py
  ```
@@ -114,7 +116,9 @@ Este script:
 - Vectoriza los comentarios usando TF-IDF
 - Entrena un modelo de regresión logística multiclase
 - Evalúa el rendimiento usando AUC-ROC
-- Guarda el modelo entrenado y el vectorizador Modelo BERT
+- Guarda el modelo entrenado y el vectorizador
+
+Modelo BERT
 El entrenamiento del modelo BERT se realizó en Google Colab debido a sus requisitos computacionales:
 
 ```bash
